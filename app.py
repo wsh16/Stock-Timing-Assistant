@@ -55,6 +55,106 @@ def pretty_json(value: str) -> str:
         return str(value)
 
 
+def default_rule_initial() -> dict[str, Any]:
+    return {
+        "market": "A",
+        "symbol": "",
+        "display_name": "",
+        "benchmark_symbol": "sh000001",
+        "benchmark_name": "上证指数",
+        "monitor_mode": "intraday",
+        "window_days": DEFAULT_WINDOW_DAYS,
+        "poll_interval_minutes": DEFAULT_POLL_MINUTES,
+        "cooldown_trading_days": DEFAULT_COOLDOWN_DAYS,
+        "buy_benchmark_min_pct": 1.0,
+        "buy_stock_max_pct": -0.5,
+        "buy_divergence_min_pct": 2.0,
+        "sell_benchmark_max_pct": -1.0,
+        "sell_stock_min_pct": 0.5,
+        "sell_divergence_min_pct": 2.0,
+        "enabled": 1,
+        "notes": "",
+    }
+
+
+def watchlist_to_initial(rule: WatchlistRule, *, clear_identity: bool = False) -> dict[str, Any]:
+    initial = {
+        "market": rule.market,
+        "symbol": rule.symbol,
+        "display_name": rule.display_name,
+        "benchmark_symbol": rule.benchmark_symbol,
+        "benchmark_name": rule.benchmark_name,
+        "monitor_mode": rule.monitor_mode,
+        "window_days": rule.window_days,
+        "poll_interval_minutes": rule.poll_interval_minutes,
+        "cooldown_trading_days": rule.cooldown_trading_days,
+        "buy_benchmark_min_pct": rule.buy_benchmark_min_pct,
+        "buy_stock_max_pct": rule.buy_stock_max_pct,
+        "buy_divergence_min_pct": rule.buy_divergence_min_pct,
+        "sell_benchmark_max_pct": rule.sell_benchmark_max_pct,
+        "sell_stock_min_pct": rule.sell_stock_min_pct,
+        "sell_divergence_min_pct": rule.sell_divergence_min_pct,
+        "enabled": 1 if rule.enabled else 0,
+        "notes": rule.notes,
+    }
+    if clear_identity:
+        initial["symbol"] = ""
+        initial["display_name"] = ""
+    return initial
+
+
+def seed_rule_form(prefix: str, initial: dict[str, Any]) -> None:
+    form_fields = [
+        "market",
+        "symbol",
+        "display_name",
+        "monitor_mode",
+        "window_days",
+        "poll_interval_minutes",
+        "cooldown_trading_days",
+        "buy_benchmark_min_pct",
+        "buy_stock_max_pct",
+        "buy_divergence_min_pct",
+        "sell_benchmark_max_pct",
+        "sell_stock_min_pct",
+        "sell_divergence_min_pct",
+        "enabled",
+        "notes",
+    ]
+    for field in form_fields:
+        st.session_state[f"{prefix}_{field}"] = initial[field]
+
+    benchmark_defaults = get_default_benchmarks(initial["market"])
+    matching_default = next(
+        (
+            item["label"]
+            for item in benchmark_defaults
+            if item["symbol"] == initial["benchmark_symbol"]
+        ),
+        "自定义",
+    )
+    st.session_state[f"{prefix}_benchmark_choice"] = matching_default
+    st.session_state[f"{prefix}_benchmark_symbol"] = initial["benchmark_symbol"]
+    st.session_state[f"{prefix}_benchmark_name"] = initial["benchmark_name"]
+    st.session_state[f"{prefix}_last_market"] = initial["market"]
+    st.session_state[f"{prefix}_auto_name"] = ""
+
+
+def queue_rule_form_seed(prefix: str, initial: dict[str, Any], *, notice: str = "") -> None:
+    st.session_state[f"{prefix}_seed_payload"] = initial
+    if notice:
+        st.session_state[f"{prefix}_seed_notice"] = notice
+
+
+def apply_queued_rule_form_seed(prefix: str) -> None:
+    payload = st.session_state.pop(f"{prefix}_seed_payload", None)
+    if payload is not None:
+        seed_rule_form(prefix, payload)
+    notice = st.session_state.pop(f"{prefix}_seed_notice", None)
+    if notice:
+        st.session_state[f"{prefix}_active_notice"] = notice
+
+
 def apply_a_share_symbol_autofill(prefix: str, initial: dict[str, Any], market: str) -> tuple[str, str]:
     symbol_key = f"{prefix}_symbol"
     display_name_key = f"{prefix}_display_name"
@@ -215,49 +315,59 @@ def parse_rule_form(prefix: str, *, initial: dict[str, Any]) -> dict[str, Any]:
     buy_col1, buy_col2, buy_col3 = st.columns(3)
     with buy_col1:
         buy_benchmark_min_pct = st.number_input(
-            "基准最小涨幅(%)",
+            "基准涨跌幅下限(%)",
             value=float(initial["buy_benchmark_min_pct"]),
             step=0.1,
             key=f"{prefix}_buy_benchmark_min_pct",
         )
     with buy_col2:
         buy_stock_max_pct = st.number_input(
-            "个股最大涨幅(%)",
+            "个股涨跌幅上限(%)",
             value=float(initial["buy_stock_max_pct"]),
             step=0.1,
             key=f"{prefix}_buy_stock_max_pct",
         )
     with buy_col3:
         buy_divergence_min_pct = st.number_input(
-            "最小背离差(%)",
+            "背离差下限(%)",
             value=float(initial["buy_divergence_min_pct"]),
             step=0.1,
             key=f"{prefix}_buy_divergence_min_pct",
         )
+    st.caption(
+        "说明：买入规则使用“基准涨跌幅 - 个股涨跌幅”计算背离。"
+        "例如填 `1 / 0 / 3`，表示只有当基准至少涨 1%、个股最多持平，且基准至少强于个股 3% 时才提醒；"
+        "如果允许个股上涨，可把“个股涨跌幅上限”设成正数，例如 `1` 表示个股最多涨 1%。"
+    )
 
     st.markdown("**卖出阈值**")
     sell_col1, sell_col2, sell_col3 = st.columns(3)
     with sell_col1:
         sell_benchmark_max_pct = st.number_input(
-            "基准最大跌幅(%)",
+            "基准涨跌幅上限(%)",
             value=float(initial["sell_benchmark_max_pct"]),
             step=0.1,
             key=f"{prefix}_sell_benchmark_max_pct",
         )
     with sell_col2:
         sell_stock_min_pct = st.number_input(
-            "个股最小涨幅(%)",
+            "个股涨跌幅下限(%)",
             value=float(initial["sell_stock_min_pct"]),
             step=0.1,
             key=f"{prefix}_sell_stock_min_pct",
         )
     with sell_col3:
         sell_divergence_min_pct = st.number_input(
-            "最小背离差(%) ",
+            "背离差下限(%)",
             value=float(initial["sell_divergence_min_pct"]),
             step=0.1,
             key=f"{prefix}_sell_divergence_min_pct",
         )
+    st.caption(
+        "说明：卖出规则使用“个股涨跌幅 - 基准涨跌幅”计算背离。"
+        "例如填 `-1 / 0 / 3`，表示只有当基准至少跌 1%、个股至少持平，且个股至少强于基准 3% 时才提醒；"
+        "如果想要求个股必须上涨 1% 以上，可把“个股涨跌幅下限”设成 `1`。"
+    )
 
     notes = st.text_area(
         "备注",
@@ -314,34 +424,29 @@ def render_watchlists_page() -> None:
     metric_col3.metric("默认访问地址", STREAMLIT_URL)
 
     with st.expander("新增规则", expanded=True):
-        initial = {
-            "market": "A",
-            "symbol": "",
-            "display_name": "",
-            "benchmark_symbol": "sh000001",
-            "benchmark_name": "上证指数",
-            "monitor_mode": "intraday",
-            "window_days": DEFAULT_WINDOW_DAYS,
-            "poll_interval_minutes": DEFAULT_POLL_MINUTES,
-            "cooldown_trading_days": DEFAULT_COOLDOWN_DAYS,
-            "buy_benchmark_min_pct": 1.0,
-            "buy_stock_max_pct": -0.5,
-            "buy_divergence_min_pct": 2.0,
-            "sell_benchmark_max_pct": -1.0,
-            "sell_stock_min_pct": 0.5,
-            "sell_divergence_min_pct": 2.0,
-            "enabled": 1,
-            "notes": "",
-        }
+        initial = default_rule_initial()
+        apply_queued_rule_form_seed("create")
+        copy_notice = st.session_state.get("create_active_notice", "")
+        if copy_notice:
+            st.info(copy_notice)
         raw_payload = parse_rule_form("create", initial=initial)
-        st.caption("切换市场后会立即刷新默认基准候选；也可以选择“自定义”手动输入指数或 ETF 代码。")
-        if st.button("保存新规则", key="create_rule_submit", use_container_width=True):
+        st.caption(
+            "切换市场后会立即刷新默认基准候选；也可以选择“自定义”手动输入指数或 ETF 代码。"
+            "如果想复用现有参数，可在下方已有规则里点击“复制为新规则”。"
+        )
+        create_col1, create_col2 = st.columns(2)
+        if create_col1.button("保存新规则", key="create_rule_submit", use_container_width=True):
             try:
                 save_watchlist(normalize_rule_payload(raw_payload))
+                st.session_state.pop("create_active_notice", None)
                 st.success("规则已保存。")
                 st.rerun()
             except ValueError as exc:
                 st.error(str(exc))
+        if create_col2.button("恢复默认", key="create_rule_reset", use_container_width=True):
+            queue_rule_form_seed("create", default_rule_initial())
+            st.session_state.pop("create_active_notice", None)
+            st.rerun()
 
     if not rules:
         st.info("还没有任何规则，先从上面添加一条。")
@@ -372,25 +477,7 @@ def render_watchlists_page() -> None:
             f"编辑 #{rule.id} | {rule.display_name} ({rule.symbol}) | "
             f"{'启用中' if rule.enabled else '已停用'}"
         ):
-            initial = {
-                "market": rule.market,
-                "symbol": rule.symbol,
-                "display_name": rule.display_name,
-                "benchmark_symbol": rule.benchmark_symbol,
-                "benchmark_name": rule.benchmark_name,
-                "monitor_mode": rule.monitor_mode,
-                "window_days": rule.window_days,
-                "poll_interval_minutes": rule.poll_interval_minutes,
-                "cooldown_trading_days": rule.cooldown_trading_days,
-                "buy_benchmark_min_pct": rule.buy_benchmark_min_pct,
-                "buy_stock_max_pct": rule.buy_stock_max_pct,
-                "buy_divergence_min_pct": rule.buy_divergence_min_pct,
-                "sell_benchmark_max_pct": rule.sell_benchmark_max_pct,
-                "sell_stock_min_pct": rule.sell_stock_min_pct,
-                "sell_divergence_min_pct": rule.sell_divergence_min_pct,
-                "enabled": 1 if rule.enabled else 0,
-                "notes": rule.notes,
-            }
+            initial = watchlist_to_initial(rule)
             raw_payload = parse_rule_form(f"edit_{rule.id}", initial=initial)
             if st.button("保存修改", key=f"save_{rule.id}", use_container_width=True):
                 try:
@@ -400,15 +487,26 @@ def render_watchlists_page() -> None:
                 except ValueError as exc:
                     st.error(str(exc))
 
-            action_col1, action_col2 = st.columns(2)
+            action_col1, action_col2, action_col3 = st.columns(3)
             if action_col1.button(
+                "复制为新规则",
+                key=f"copy_{rule.id}",
+                use_container_width=True,
+            ):
+                queue_rule_form_seed(
+                    "create",
+                    watchlist_to_initial(rule, clear_identity=True),
+                    notice=f"已复制规则 #{rule.id} 的监控参数，请填写新的股票代码和名称后再保存。",
+                )
+                st.rerun()
+            if action_col2.button(
                 "停用" if rule.enabled else "启用",
                 key=f"toggle_{rule.id}",
                 use_container_width=True,
             ):
                 set_watchlist_enabled(rule.id, not rule.enabled)
                 st.rerun()
-            if action_col2.button(
+            if action_col3.button(
                 "删除",
                 key=f"delete_{rule.id}",
                 use_container_width=True,

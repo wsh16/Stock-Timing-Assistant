@@ -1,0 +1,397 @@
+- generic [ref=e2]:
+  - generic [ref=e13]:
+    - paragraph [ref=e17]: 页面
+    - radiogroup "页面" [ref=e18] [cursor=pointer]:
+      - generic [ref=e19]:
+        - radio "股票池与规则管理" [checked]
+        - paragraph [ref=e24]: 股票池与规则管理
+      - generic [ref=e25]:
+        - radio "系统设置与密钥配置"
+        - paragraph [ref=e30]: 系统设置与密钥配置
+      - generic [ref=e31]:
+        - radio "提醒日志与运行状态"
+        - paragraph [ref=e36]: 提醒日志与运行状态
+  - generic [ref=e3]:
+    - banner [ref=e39]:
+      - generic [ref=e42]:
+        - button "Deploy" [ref=e44] [cursor=pointer]:
+          - generic [ref=e46]: Deploy
+        - button "Main menu" [ref=e48] [cursor=pointer]:
+          - img [ref=e49]
+    - generic [ref=e52]:
+      - heading "择时助手" [level=1] [ref=e57]:
+        - text: 择时助手
+        - generic [ref=e58]:
+          - link "Link to heading":
+            - /url: "#2ee7e28a"
+            - img
+      - paragraph [ref=e63]: 中低频股票择时提醒工具：支持日内背离和跨日背离，不自动下单。
+      - heading "股票池与规则管理" [level=3] [ref=e68]:
+        - text: 股票池与规则管理
+        - generic [ref=e69]:
+          - link "Link to heading":
+            - /url: "#cdee8321"
+            - img
+      - generic [ref=e71]:
+        - generic [ref=e76]:
+          - paragraph [ref=e79]: 规则总数
+          - paragraph [ref=e82]: "5"
+        - generic [ref=e87]:
+          - paragraph [ref=e90]: 启用中
+          - paragraph [ref=e93]: "5"
+        - generic [ref=e98]:
+          - paragraph [ref=e101]: 默认访问地址
+          - paragraph [ref=e104]:
+            - link "http://localhost:8501" [ref=e105] [cursor=pointer]:
+              - /url: http://localhost:8501
+      - group [ref=e108]:
+        - generic "keyboard_arrow_down 新增规则" [ref=e109] [cursor=pointer]:
+          - generic [ref=e110]:
+            - generic [ref=e112]: keyboard_arrow_down
+            - paragraph [ref=e115]: 新增规则
+        - generic [ref=e117]:
+          - generic [ref=e119]:
+            - paragraph [ref=e123]: 市场
+            - generic [ref=e125]:
+              - generic [ref=e126]:
+                - generic [ref=e127]: A股
+                - combobox "Selected A股. 市场" [ref=e129]
+              - img "open" [ref=e131]
+          - generic [ref=e134]:
+            - generic [ref=e135]:
+              - paragraph [ref=e138]: 股票代码
+              - button "Help for 股票代码" [ref=e142] [cursor=pointer]:
+                - img [ref=e143]
+            - textbox "股票代码" [ref=e148]:
+              - /placeholder: ""
+          - generic [ref=e150]:
+            - generic [ref=e151]:
+              - paragraph [ref=e154]: 股票名称
+              - button "Help for 股票名称" [ref=e158] [cursor=pointer]:
+                - img [ref=e159]
+            - textbox "股票名称" [ref=e164]:
+              - /placeholder: ""
+          - paragraph [ref=e169]:
+            - text: 输入 6 位 A 股代码后会自动补全
+            - code [ref=e170]: sh/sz
+            - text: 前缀，并尝试带出股票名称。
+          - generic [ref=e172]:
+            - paragraph [ref=e176]: 比较基准
+            - generic [ref=e178]:
+              - generic [ref=e179]:
+                - generic [ref=e180]: 上证指数
+                - combobox "Selected 上证指数. 比较基准" [ref=e182]
+              - img "open" [ref=e184]
+          - paragraph [ref=e190]: 已选择默认基准：上证指数 (sh000001)
+          - generic [ref=e192]:
+            - paragraph [ref=e196]: 监控模式
+            - radiogroup "监控模式" [ref=e197] [cursor=pointer]:
+              - generic [ref=e198]:
+                - radio "日内" [checked]
+                - paragraph [ref=e203]: 日内
+              - generic [ref=e204]:
+                - radio "跨日"
+                - paragraph [ref=e209]: 跨日
+          - generic [ref=e211]:
+            - generic [ref=e215]:
+              - paragraph [ref=e219]: 跨日窗口天数
+              - generic [ref=e221]:
+                - generic [ref=e222]:
+                  - generic [ref=e223]: "5"
+                  - combobox "Selected 5. 跨日窗口天数" [disabled] [ref=e225]
+                - img "open" [ref=e227]
+            - generic [ref=e232]:
+              - paragraph [ref=e236]: 轮询间隔(分钟)
+              - generic [ref=e238]:
+                - generic [ref=e239]:
+                  - generic [ref=e240]: "15"
+                  - combobox "Selected 15. 轮询间隔(分钟)" [ref=e242]
+                - img "open" [ref=e244]
+            - generic [ref=e249]:
+              - paragraph [ref=e253]: 冷却交易日
+              - generic [ref=e254]:
+                - spinbutton "冷却交易日" [ref=e257]: "1"
+                - generic [ref=e258]:
+                  - button [ref=e259] [cursor=pointer]:
+                    - img [ref=e260]
+                  - button [ref=e262] [cursor=pointer]:
+                    - img [ref=e263]
+          - paragraph [ref=e269]:
+            - strong [ref=e270]: 买入阈值
+          - generic [ref=e272]:
+            - generic [ref=e276]:
+              - paragraph [ref=e280]: 基准涨跌幅下限(%)
+              - generic [ref=e281]:
+                - spinbutton "基准涨跌幅下限(%)" [ref=e284]: "1.00"
+                - generic [ref=e285]:
+                  - button [ref=e286] [cursor=pointer]:
+                    - img [ref=e287]
+                  - button [ref=e289] [cursor=pointer]:
+                    - img [ref=e290]
+            - generic [ref=e295]:
+              - paragraph [ref=e299]: 个股涨跌幅上限(%)
+              - generic [ref=e300]:
+                - spinbutton "个股涨跌幅上限(%)" [ref=e303]: "-0.50"
+                - generic [ref=e304]:
+                  - button [ref=e305] [cursor=pointer]:
+                    - img [ref=e306]
+                  - button [ref=e308] [cursor=pointer]:
+                    - img [ref=e309]
+            - generic [ref=e314]:
+              - paragraph [ref=e318]: 背离差下限(%)
+              - generic [ref=e319]:
+                - spinbutton "背离差下限(%)" [ref=e322]: "2.00"
+                - generic [ref=e323]:
+                  - button [ref=e324] [cursor=pointer]:
+                    - img [ref=e325]
+                  - button [ref=e327] [cursor=pointer]:
+                    - img [ref=e328]
+          - paragraph [ref=e334]:
+            - text: 说明：买入规则使用“基准涨跌幅 - 个股涨跌幅”计算背离。例如填
+            - code [ref=e335]: 1 / 0 / 3
+            - text: ，表示只有当基准至少涨 1%、个股最多持平，且基准至少强于个股 3% 时才提醒；如果允许个股上涨，可把“个股涨跌幅上限”设成正数，例如
+            - code [ref=e336]: "1"
+            - text: 表示个股最多涨 1%。
+          - paragraph [ref=e341]:
+            - strong [ref=e342]: 卖出阈值
+          - generic [ref=e344]:
+            - generic [ref=e348]:
+              - paragraph [ref=e352]: 基准涨跌幅上限(%)
+              - generic [ref=e353]:
+                - spinbutton "基准涨跌幅上限(%)" [ref=e356]: "-1.00"
+                - generic [ref=e357]:
+                  - button [ref=e358] [cursor=pointer]:
+                    - img [ref=e359]
+                  - button [ref=e361] [cursor=pointer]:
+                    - img [ref=e362]
+            - generic [ref=e367]:
+              - paragraph [ref=e371]: 个股涨跌幅下限(%)
+              - generic [ref=e372]:
+                - spinbutton "个股涨跌幅下限(%)" [ref=e375]: "0.50"
+                - generic [ref=e376]:
+                  - button [ref=e377] [cursor=pointer]:
+                    - img [ref=e378]
+                  - button [ref=e380] [cursor=pointer]:
+                    - img [ref=e381]
+            - generic [ref=e386]:
+              - paragraph [ref=e390]: 背离差下限(%)
+              - generic [ref=e391]:
+                - spinbutton "背离差下限(%)" [ref=e394]: "2.00"
+                - generic [ref=e395]:
+                  - button [ref=e396] [cursor=pointer]:
+                    - img [ref=e397]
+                  - button [ref=e399] [cursor=pointer]:
+                    - img [ref=e400]
+          - paragraph [ref=e406]:
+            - text: 说明：卖出规则使用“个股涨跌幅 - 基准涨跌幅”计算背离。例如填
+            - code [ref=e407]: "-1 / 0 / 3"
+            - text: ，表示只有当基准至少跌 1%、个股至少持平，且个股至少强于基准 3% 时才提醒；如果想要求个股必须上涨 1% 以上，可把“个股涨跌幅下限”设成
+            - code [ref=e408]: "1"
+            - text: 。
+          - generic [ref=e410]:
+            - paragraph [ref=e414]: 备注
+            - textbox "备注" [ref=e417]:
+              - /placeholder: ""
+          - generic [ref=e420] [cursor=pointer]:
+            - checkbox "启用这条规则" [checked]
+            - paragraph [ref=e425]: 启用这条规则
+          - paragraph [ref=e430]: 切换市场后会立即刷新默认基准候选；也可以选择“自定义”手动输入指数或 ETF 代码。如果想复用现有参数，可在下方已有规则里点击“复制为新规则”。
+          - generic [ref=e432]:
+            - button "保存新规则" [ref=e437] [cursor=pointer]:
+              - paragraph [ref=e441]: 保存新规则
+            - button "恢复默认" [ref=e446] [cursor=pointer]:
+              - paragraph [ref=e450]: 恢复默认
+      - generic [ref=e455]:
+        - button "Show/hide columns" [ref=e459] [cursor=pointer]:
+          - img [ref=e460]
+        - button "Download as CSV" [ref=e465] [cursor=pointer]:
+          - img [ref=e466]
+        - button "Search" [ref=e471] [cursor=pointer]:
+          - img [ref=e472]
+        - button "Fullscreen" [ref=e477] [cursor=pointer]:
+          - img [ref=e478]
+      - group [ref=e491]:
+        - 'generic "keyboard_arrow_right 编辑 #7 | 隆基绿能 (sh601012) | 启用中" [ref=e492] [cursor=pointer]':
+          - generic [ref=e493]:
+            - generic [ref=e495]: keyboard_arrow_right
+            - paragraph [ref=e498]: "编辑 #7 | 隆基绿能 (sh601012) | 启用中"
+      - group [ref=e501]:
+        - 'generic "keyboard_arrow_down 编辑 #3 | TSM (TSM) | 启用中" [ref=e539] [cursor=pointer]':
+          - generic [ref=e503]:
+            - generic [ref=e541]: keyboard_arrow_down
+            - paragraph [ref=e508]: "编辑 #3 | TSM (TSM) | 启用中"
+        - generic [ref=e543]:
+          - generic [ref=e545]:
+            - paragraph [ref=e549]: 市场
+            - generic [ref=e551]:
+              - generic [ref=e552]:
+                - generic [ref=e553]: 美股
+                - combobox "Selected 美股. 市场" [ref=e555]
+              - img "open" [ref=e557]
+          - generic [ref=e560]:
+            - generic [ref=e561]:
+              - paragraph [ref=e564]: 股票代码
+              - button "Help for 股票代码" [ref=e568] [cursor=pointer]:
+                - img [ref=e569]
+            - textbox "股票代码" [ref=e574]:
+              - /placeholder: ""
+              - text: TSM
+          - generic [ref=e576]:
+            - generic [ref=e577]:
+              - paragraph [ref=e580]: 股票名称
+              - button "Help for 股票名称" [ref=e584] [cursor=pointer]:
+                - img [ref=e585]
+            - textbox "股票名称" [ref=e590]:
+              - /placeholder: ""
+              - text: TSM
+          - generic [ref=e592]:
+            - paragraph [ref=e596]: 比较基准
+            - generic [ref=e598]:
+              - generic [ref=e599]:
+                - generic [ref=e600]: SPY
+                - combobox "Selected SPY. 比较基准" [ref=e602]
+              - img "open" [ref=e604]
+          - paragraph [ref=e610]: 已选择默认基准：SPY (SPY)
+          - generic [ref=e612]:
+            - paragraph [ref=e616]: 监控模式
+            - radiogroup "监控模式" [ref=e617] [cursor=pointer]:
+              - generic [ref=e618]:
+                - radio "日内" [checked]
+                - paragraph [ref=e623]: 日内
+              - generic [ref=e624]:
+                - radio "跨日"
+                - paragraph [ref=e629]: 跨日
+          - generic [ref=e631]:
+            - generic [ref=e635]:
+              - paragraph [ref=e639]: 跨日窗口天数
+              - generic [ref=e641]:
+                - generic [ref=e642]:
+                  - generic [ref=e643]: "5"
+                  - combobox "Selected 5. 跨日窗口天数" [disabled] [ref=e645]
+                - img "open" [ref=e647]
+            - generic [ref=e652]:
+              - paragraph [ref=e656]: 轮询间隔(分钟)
+              - generic [ref=e658]:
+                - generic [ref=e659]:
+                  - generic [ref=e660]: "5"
+                  - combobox "Selected 5. 轮询间隔(分钟)" [ref=e662]
+                - img "open" [ref=e664]
+            - generic [ref=e669]:
+              - paragraph [ref=e673]: 冷却交易日
+              - generic [ref=e674]:
+                - spinbutton "冷却交易日" [ref=e677]: "1"
+                - generic [ref=e678]:
+                  - button [ref=e679] [cursor=pointer]:
+                    - img [ref=e680]
+                  - button [ref=e682] [cursor=pointer]:
+                    - img [ref=e683]
+          - paragraph [ref=e689]:
+            - strong [ref=e690]: 买入阈值
+          - generic [ref=e692]:
+            - generic [ref=e696]:
+              - paragraph [ref=e700]: 基准涨跌幅下限(%)
+              - generic [ref=e701]:
+                - spinbutton "基准涨跌幅下限(%)" [ref=e704]: "0.10"
+                - generic [ref=e705]:
+                  - button [ref=e706] [cursor=pointer]:
+                    - img [ref=e707]
+                  - button [ref=e709] [cursor=pointer]:
+                    - img [ref=e710]
+            - generic [ref=e715]:
+              - paragraph [ref=e719]: 个股涨跌幅上限(%)
+              - generic [ref=e720]:
+                - spinbutton "个股涨跌幅上限(%)" [ref=e723]: "-0.10"
+                - generic [ref=e724]:
+                  - button [ref=e725] [cursor=pointer]:
+                    - img [ref=e726]
+                  - button [ref=e728] [cursor=pointer]:
+                    - img [ref=e729]
+            - generic [ref=e734]:
+              - paragraph [ref=e738]: 背离差下限(%)
+              - generic [ref=e739]:
+                - spinbutton "背离差下限(%)" [ref=e742]: "0.10"
+                - generic [ref=e743]:
+                  - button [ref=e744] [cursor=pointer]:
+                    - img [ref=e745]
+                  - button [ref=e747] [cursor=pointer]:
+                    - img [ref=e748]
+          - paragraph [ref=e754]:
+            - text: 说明：买入规则使用“基准涨跌幅 - 个股涨跌幅”计算背离。例如填
+            - code [ref=e755]: 1 / 0 / 3
+            - text: ，表示只有当基准至少涨 1%、个股最多持平，且基准至少强于个股 3% 时才提醒；如果允许个股上涨，可把“个股涨跌幅上限”设成正数，例如
+            - code [ref=e756]: "1"
+            - text: 表示个股最多涨 1%。
+          - paragraph [ref=e761]:
+            - strong [ref=e762]: 卖出阈值
+          - generic [ref=e764]:
+            - generic [ref=e768]:
+              - paragraph [ref=e772]: 基准涨跌幅上限(%)
+              - generic [ref=e773]:
+                - spinbutton "基准涨跌幅上限(%)" [ref=e776]: "-1.00"
+                - generic [ref=e777]:
+                  - button [ref=e778] [cursor=pointer]:
+                    - img [ref=e779]
+                  - button [ref=e781] [cursor=pointer]:
+                    - img [ref=e782]
+            - generic [ref=e787]:
+              - paragraph [ref=e791]: 个股涨跌幅下限(%)
+              - generic [ref=e792]:
+                - spinbutton "个股涨跌幅下限(%)" [ref=e795]: "0.50"
+                - generic [ref=e796]:
+                  - button [ref=e797] [cursor=pointer]:
+                    - img [ref=e798]
+                  - button [ref=e800] [cursor=pointer]:
+                    - img [ref=e801]
+            - generic [ref=e806]:
+              - paragraph [ref=e810]: 背离差下限(%)
+              - generic [ref=e811]:
+                - spinbutton "背离差下限(%)" [ref=e814]: "2.00"
+                - generic [ref=e815]:
+                  - button [ref=e816] [cursor=pointer]:
+                    - img [ref=e817]
+                  - button [ref=e819] [cursor=pointer]:
+                    - img [ref=e820]
+          - paragraph [ref=e826]:
+            - text: 说明：卖出规则使用“个股涨跌幅 - 基准涨跌幅”计算背离。例如填
+            - code [ref=e827]: "-1 / 0 / 3"
+            - text: ，表示只有当基准至少跌 1%、个股至少持平，且个股至少强于基准 3% 时才提醒；如果想要求个股必须上涨 1% 以上，可把“个股涨跌幅下限”设成
+            - code [ref=e828]: "1"
+            - text: 。
+          - generic [ref=e830]:
+            - paragraph [ref=e834]: 备注
+            - textbox "备注" [ref=e837]:
+              - /placeholder: ""
+          - generic [ref=e840] [cursor=pointer]:
+            - checkbox "启用这条规则" [checked]
+            - paragraph [ref=e845]: 启用这条规则
+          - button "保存修改" [ref=e848] [cursor=pointer]:
+            - paragraph [ref=e852]: 保存修改
+          - button "复制为新规则" [active] [ref=e859] [cursor=pointer]:
+            - paragraph [ref=e863]: 复制为新规则
+      - alert [ref=e884]:
+        - generic [ref=e887]:
+          - paragraph [ref=e890]:
+            - strong [ref=e891]: streamlit.errors.StreamlitAPIException
+            - text: ":"
+            - code [ref=e892]: st.session_state.create_market
+            - text: cannot be modified after the widget with key
+            - code [ref=e893]: create_market
+            - text: is instantiated.
+          - generic [ref=e894]:
+            - generic [ref=e895]: "Traceback:"
+            - code [ref=e898]:
+              - generic [ref=e899]: File "C:\Users\swu567\Documents\Codex Projects\择时助手\.venv\Lib\site-packages\streamlit\runtime\scriptrunner\exec_code.py", line 129, in exec_func_with_error_handling result = func() ^^^^^^
+              - generic [ref=e900]: "File \"C:\\Users\\swu567\\Documents\\Codex Projects\\择时助手\\.venv\\Lib\\site-packages\\streamlit\\runtime\\scriptrunner\\script_runner.py\", line 689, in code_to_exec exec(code, module.__dict__) # noqa: S102 ^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+              - generic [ref=e901]: File "C:\Users\swu567\Documents\Codex Projects\择时助手\app.py", line 670, in <module> render_watchlists_page()
+              - generic [ref=e902]: File "C:\Users\swu567\Documents\Codex Projects\择时助手\app.py", line 480, in render_watchlists_page seed_rule_form("create", watchlist_to_initial(rule, clear_identity=True))
+              - generic [ref=e903]: "File \"C:\\Users\\swu567\\Documents\\Codex Projects\\择时助手\\app.py\", line 125, in seed_rule_form st.session_state[f\"{prefix}_{field}\"] = initial[field] ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^"
+              - generic [ref=e904]: File "C:\Users\swu567\Documents\Codex Projects\择时助手\.venv\Lib\site-packages\streamlit\runtime\metrics_util.py", line 563, in wrapped_func result = non_optional_func(*args, **kwargs) ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+              - generic [ref=e905]: File "C:\Users\swu567\Documents\Codex Projects\择时助手\.venv\Lib\site-packages\streamlit\runtime\state\session_state_proxy.py", line 114, in __setitem__ get_session_state()[key] = value ~~~~~~~~~~~~~~~~~~~^^^^^
+              - generic [ref=e906]: File "C:\Users\swu567\Documents\Codex Projects\择时助手\.venv\Lib\site-packages\streamlit\runtime\state\safe_session_state.py", line 109, in __setitem__ self._state[key] = value ~~~~~~~~~~~^^^^^
+              - generic [ref=e907]: File "C:\Users\swu567\Documents\Codex Projects\择时助手\.venv\Lib\site-packages\streamlit\runtime\state\session_state.py", line 601, in __setitem__ raise StreamlitAPIException(
+          - generic [ref=e908]:
+            - button "Copy" [ref=e909] [cursor=pointer]
+            - link "Ask Google" [ref=e910] [cursor=pointer]:
+              - /url: https://www.google.com/search?q=streamlit.errors.StreamlitAPIException%3A%20%60st.session_state.create_market%60%20cannot%20be%20modified%20after%20the%20widget%20with%20key%20%60create_market%60%20is%20instantiated.
+            - link "Ask ChatGPT" [ref=e911] [cursor=pointer]:
+              - /url: https://chatgpt.com/?q=streamlit.errors.StreamlitAPIException%3A%20%60st.session_state.create_market%60%20cannot%20be%20modified%20after%20the%20widget%20with%20key%20%60create_market%60%20is%20instantiated.%0A%0AFile%20%22C%3A%5CUsers%5Cswu567%5CDocuments%5CCodex%20Projects%5C%E6%8B%A9%E6%97%B6%E5%8A%A9%E6%89%8B%5C.venv%5CLib%5Csite-packages%5Cstreamlit%5Cruntime%5Cscriptrunner%5Cexec_code.py%22%2C%20line%20129%2C%20in%20exec_func_with_error_handling%0A%20%20%20%20result%20%3D%20func()%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%5E%5E%5E%5E%5E%5E%0AFile%20%22C%3A%5CUsers%5Cswu567%5CDocuments%5CCodex%20Projects%5C%E6%8B%A9%E6%97%B6%E5%8A%A9%E6%89%8B%5C.venv%5CLib%5Csite-packages%5Cstreamlit%5Cruntime%5Cscriptrunner%5Cscript_runner.py%22%2C%20line%20689%2C%20in%20code_to_exec%0A%20%20%20%20exec(code%2C%20module.__dict__)%20%20%23%20noqa%3A%20S102%0A%20%20%20%20%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%0AFile%20%22C%3A%5CUsers%5Cswu567%5CDocuments%5CCodex%20Projects%5C%E6%8B%A9%E6%97%B6%E5%8A%A9%E6%89%8B%5Capp.py%22%2C%20line%20670%2C%20in%20%3Cmodule%3E%0A%20%20%20%20render_watchlists_page()%0AFile%20%22C%3A%5CUsers%5Cswu567%5CDocuments%5CCodex%20Projects%5C%E6%8B%A9%E6%97%B6%E5%8A%A9%E6%89%8B%5Capp.py%22%2C%20line%20480%2C%20in%20render_watchlists_page%0A%20%20%20%20seed_rule_form(%22create%22%2C%20watchlist_to_initial(rule%2C%20clear_identity%3DTrue))%0AFile%20%22C%3A%5CUsers%5Cswu567%5CDocuments%5CCodex%20Projects%5C%E6%8B%A9%E6%97%B6%E5%8A%A9%E6%89%8B%5Capp.py%22%2C%20line%20125%2C%20in%20seed_rule_form%0A%20%20%20%20st.session_state%5Bf%22%7Bprefix%7D_%7Bfield%7D%22%5D%20%3D%20initial%5Bfield%5D%0A%20%20%20%20~~~~~~~~~~~~~~~~%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%0AFile%20%22C%3A%5CUsers%5Cswu567%5CDocuments%5CCodex%20Projects%5C%E6%8B%A9%E6%97%B6%E5%8A%A9%E6%89%8B%5C.venv%5CLib%5Csite-packages%5Cstreamlit%5Cruntime%5Cmetrics_util.py%22%2C%20line%20563%2C%20in%20wrapped_func%0A%20%20%20%20result%20%3D%20non_optional_func(*args%2C%20**kwargs)%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%5E%0AFile%20%22C%3A%5CUsers%5Cswu567%5CDocuments%5CCodex%20Projects%5C%E6%8B%A9%E6%97%B6%E5%8A%A9%E6%89%8B%5C.venv%5CLib%5Csite-packages%5Cstreamlit%5Cruntime%5Cstate%5Csession_state_proxy.py%22%2C%20line%20114%2C%20in%20__setitem__%0A%20%20%20%20get_session_state()%5Bkey%5D%20%3D%20value%0A%20%20%20%20~~~~~~~~~~~~~~~~~~~%5E%5E%5E%5E%5E%0AFile%20%22C%3A%5CUsers%5Cswu567%5CDocuments%5CCodex%20Projects%5C%E6%8B%A9%E6%97%B6%E5%8A%A9%E6%89%8B%5C.venv%5CLib%5Csite-packages%5Cstreamlit%5Cruntime%5Cstate%5Csafe_session_state.py%22%2C%20line%20109%2C%20in%20__setitem__%0A%20%20%20%20self._state%5Bkey%5D%20%3D%20value%0A%20%20%20%20~~~~~~~~~~~%5E%5E%5E%5E%5E%0AFile%20%22C%3A%5CUsers%5Cswu567%5CDocuments%5CCodex%20Projects%5C%E6%8B%A9%E6%97%B6%E5%8A%A9%E6%89%8B%5C.venv%5CLib%5Csite-packages%5Cstreamlit%5Cruntime%5Cstate%5Csession_state.py%22%2C%20line%20601%2C%20in%20__setitem__%0A%20%20%20%20raise%20StreamlitAPIException(
