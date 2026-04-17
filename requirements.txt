@@ -1,0 +1,8 @@
+akshare
+apscheduler
+exchange-calendars
+pandas
+pytest
+python-dotenv
+requests
+streamlit
